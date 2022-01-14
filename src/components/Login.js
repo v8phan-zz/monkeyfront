@@ -33,8 +33,21 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleClick = console.log({ email, password });
-
+  const handleClick = () => {
+    console.log({ email, password });
+    fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email, 
+        password: password 
+      }),
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log('error'))
+  }
   return (
     <Grid>
       <Paper elevation={10} className={classes.paper}>
