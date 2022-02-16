@@ -1,13 +1,14 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 import Avatar from "@mui/material/Avatar";
 import LockIcon from "@mui/icons-material/Lock";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const useStyles = makeStyles({
   paper: {
@@ -31,64 +32,59 @@ const useStyles = makeStyles({
   },
 });
 
-const Login = () => {
+const Login = (props) => {
+  //console.log(props);
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  let user_id = "";
+
   const handleClick = () => {
     console.log({ email, password });
-    fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
-      .then((res) => 
-        res.text()
-        //setIsLoggedIn(true);
-      ) 
-      // convert to plain text
-      .then((text) => console.log(text)) // then log it out
-      // .then((res) => res.json())
-      // .then((res) => console.log(res))
+    axios
+      .post("/api/login", { email, password })
+      .then((res) => {
+        //console.log(res.data.user_id);
+        user_id = res.data.user_id.toString();
+        console.log("user id:", user_id);
+        props.setIsLoggedIn(true);
+        props.setuser_id(user_id);
+        Cookies.set("email", "password", { expires: 1 });
+      })
       .catch((err) => console.log(err));
   };
   const handleSignUpClick = () => {
     console.log({ email, password });
-    fetch("/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
-      .then((res) => {
-        setIsLoggedIn(true);
-        res.json();
-        console.log(res);
-      })
+    axios
+      .post("/api/signup", { email, password })
+      .then((res) => props.setIsLoggedIn(true))
       .catch((err) => console.log(err));
   };
-  if (isLoggedIn) {
+  if (props.isLoggedIn) {
     return (
-      <Button
-        variant="contained"
-        type="submit"
-        color="secondary"
-        className={classes.signupbutton}
-        onClick={() => setIsLoggedIn(false)}
-      >
-        SIGN OUT
-      </Button>
+      <Grid>
+        <Paper elevation={10} className={classes.paper}>
+          <Grid align="center">
+            <Avatar className={classes.avatar}>
+              <LockIcon />
+            </Avatar>
+            <h2>{email}</h2>
+            <Button
+              variant="contained"
+              type="submit"
+              color="secondary"
+              className={classes.signupbutton}
+              onClick={() => {
+                props.setIsLoggedIn(false);
+                Cookies.remove("email");
+              }}
+            >
+              SIGN OUT
+            </Button>
+          </Grid>
+        </Paper>
+      </Grid>
     );
   } else {
     return (
@@ -147,17 +143,6 @@ const Login = () => {
       </Grid>
     );
   }
-  // return (
-  //   <Button
-  //     variant="contained"
-  //     type="submit"
-  //     color="secondary"
-  //     className={classes.signupbutton}
-  //     onClick={setIsLoggedIn(false)}
-  //   >
-  //     SIGN OUT
-  //   </Button>
-  // );
 };
 
 export default Login;
