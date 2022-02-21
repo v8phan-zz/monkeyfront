@@ -38,7 +38,7 @@ const Login = (props) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  let user_id = "";
+  let userId = "";
 
   const handleClick = () => {
     console.log({ email, password });
@@ -46,11 +46,11 @@ const Login = (props) => {
       .post("/api/login", { email, password })
       .then((res) => {
         //console.log(res.data.user_id);
-        user_id = res.data.user_id.toString();
-        console.log("user id:", user_id);
+        userId = res.data.user_id;
+        console.log("user id:", (typeof userId), userId);
         props.setIsLoggedIn(true);
-        props.setuser_id(user_id);
-        Cookies.set("email", "password", { expires: 1 });
+        props.setuser_id(userId);
+        Cookies.set("userId", userId, { expires: 1 });
       })
       .catch((err) => console.log(err));
   };
@@ -77,7 +77,7 @@ const Login = (props) => {
               className={classes.signupbutton}
               onClick={() => {
                 props.setIsLoggedIn(false);
-                Cookies.remove("email");
+                Cookies.remove("userId");
               }}
             >
               SIGN OUT

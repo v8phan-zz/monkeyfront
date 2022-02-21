@@ -2,15 +2,21 @@ import React, { useState, useEffect, useContext } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 //import Posts from "./Posts";
 //import Cookies from "js-cookie";
 import { LoginContext } from "../App";
 
+
 const Comment = (props) => {
+
   const { blog_id } = props;
+
   const isLoggedIn = useContext(LoginContext);
-  const user_id = useContext(LoginContext);
+  //const user_id = useContext(UserContext);
+  const user_id = Cookies.get("userId");
+  console.log(user_id);
   const [comment, setComment] = useState("");
   const handleClick = () => {
     console.log( { comment, user_id });
@@ -20,7 +26,7 @@ const Comment = (props) => {
     })
     .catch((err) => console.log(err));
   }
-  console.log(props);
+  //console.log(props);
   //check if user is logged in to display comment form
   if (isLoggedIn) {
     return (

@@ -6,6 +6,7 @@ import { makeStyles } from "@mui/styles";
 import Blogbox from "./Blogbox";
 import Posts from "./Posts";
 import Comment from "./Comment";
+import DisplayComments from "./DisplayComments";
 
 const useStyles = makeStyles({
   container: {
@@ -34,7 +35,8 @@ const Home = () => {
               />
             </Grid>
             <Grid>
-              <Comment className={classes.comment} item xs={12} sm={6} blog_id={post.id}/>
+              <DisplayComments />
+              <Comment className={classes.comment} item xs={12} sm={6} blog_id={post.id} />
             </Grid>
           </Grid>
         );
