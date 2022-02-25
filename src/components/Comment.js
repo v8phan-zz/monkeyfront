@@ -8,29 +8,50 @@ import Cookies from "js-cookie";
 //import Cookies from "js-cookie";
 import { LoginContext } from "../App";
 
-
 const Comment = (props) => {
-
   const { blog_id } = props;
-
   const isLoggedIn = useContext(LoginContext);
-  //const user_id = useContext(UserContext);
   const user_id = Cookies.get("userId");
-  console.log(user_id);
   const [comment, setComment] = useState("");
-  const handleClick = () => {
-    console.log( { comment, user_id });
-    axios.post('/api/comment', {comment, blog_id, user_id })
+  const [comments, setComments] = useState([]);
+
+  const getComments = () => {
+    axios
+    .get("/api/comment", { params: { blog_id } })
     .then((res) => {
-      console.log(res)
+      setComments(res.data.RESULT);
+      console.log(res.data.RESULT, blog_id);
     })
     .catch((err) => console.log(err));
   }
+
+  useEffect(() => {
+    getComments();
+  },);
+
+  const handleClick = () => {
+    console.log({ comment, user_id });
+    axios
+      .post("/api/comment", { comment, blog_id, user_id })
+      .then((res) => {
+        console.log(res);
+      })
+      .then(() => setComment(""))
+      .then(getComments())
+      .catch((err) => console.log(err));
+  };
   //console.log(props);
   //check if user is logged in to display comment form
   if (isLoggedIn) {
     return (
       <div>
+        <div>
+          {comments.map(({ comment, user_id }) => (
+            <p>
+              {user_id}: {comment}
+            </p>
+          ))}
+        </div>
         <div>Comment on {blog_id}</div>
         <TextField
           label="comment"
@@ -39,15 +60,28 @@ const Comment = (props) => {
           onInput={(e) => setComment(e.target.value)}
         ></TextField>
         <Button
-        variant="contained"
-        type="submit"
-        color="primary"
-        onClick={handleClick}
-        >Submit</Button>
+          variant="contained"
+          type="submit"
+          color="primary"
+          onClick={handleClick}
+        >
+          Submit
+        </Button>
       </div>
     );
   } else {
-    return <div>Log in to comment on {blog_id}</div>;
+    return (
+      <div>
+        <div>
+          {comments.map(({ comment, user_id }) => (
+            <p>
+              {user_id}: {comment}
+            </p>
+          ))}
+        </div>
+        <div>Log in to comment on {blog_id}</div>;
+      </div>
+    );
   }
 };
 

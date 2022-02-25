@@ -1,22 +1,31 @@
-import React, { useState, useEffect, useContext } from "react";
-import Button from "@mui/material/Button";
+// import React, { useState, useEffect, useContext } from "react";
+// import { makeStyles } from "@mui/styles";
 
-import axios from "axios";
+// import Paper from "@mui/material/Paper";
+// import Button from "@mui/material/Button";
 
-const DisplayComments = () => {
+// import axios from "axios";
 
-  const [comments, setComments] = useState([])
+// const DisplayComments = (props) => {
+//   const { blog_id } = props;
 
-  useEffect(() => {
-    axios
-      .get("/api/comment")
-      .then((res) => {
-        console.log("DisplayComments14: ", res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+//   const [comments, setComments] = useState([]);
 
-  return <p>View Comments</p>;
-};
+//   useEffect(() => {
+//     axios
+//       .get("/api/comment", {params: {blog_id}} )
+//       .then((res) => {
+//         setComments(res.data.RESULT);
+//         console.log(res.data.RESULT, blog_id);
+//       })
+//       .catch((err) => console.log(err));
+//   }, [blog_id]);
 
-export default DisplayComments;
+//   return (
+//   <div>{comments.map(({comment, user_id}) => (
+//     <p>{user_id}: {comment}</p>
+//   ))}</div>
+//   );
+// };
+
+// export default DisplayComments;

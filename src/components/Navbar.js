@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 
-const pages = ["Home", "Post", "About", "Contact"];
+const pages = ["Home", "About", "Contact"];
 const settings = ["Login"];
 
 const ResponsiveAppBar = () => {

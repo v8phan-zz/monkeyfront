@@ -49,7 +49,7 @@ const Login = (props) => {
         userId = res.data.user_id;
         console.log("user id:", (typeof userId), userId);
         props.setIsLoggedIn(true);
-        props.setuser_id(userId);
+        //props.setuser_id(userId);
         Cookies.set("userId", userId, { expires: 1 });
       })
       .catch((err) => console.log(err));
