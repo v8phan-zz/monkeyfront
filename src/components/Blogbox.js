@@ -8,15 +8,6 @@ const useStyles = makeStyles({
     maxHeight: 300,
     maxWidth: 300,
   },
-  paper: {
-    flexGrow: 1,
-    marginTop: 20,
-    paddingTop: 1,
-    paddingLeft: 30,
-    paddingRight: 30,
-    paddingBottom: "100%",
-    marginBottom: "-100%",
-  },
 });
 
 const Blogbox = (props) => {
@@ -25,7 +16,7 @@ const Blogbox = (props) => {
   return (
     //console.log(text),
     <div>
-      <Paper className={classes.paper}>
+      <Paper >
         <h1>{name}</h1>
         {image && <img src={image} alt={alt} className={classes.image} />}
         <h2>{text}</h2>

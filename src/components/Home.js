@@ -32,13 +32,8 @@ const Home = () => {
                 alt={post.alt}
               />
             </Grid>
-            <Grid>
-              <Comment
-                item
-                xs={12}
-                sm={6}
-                blog_id={post.id}
-              />
+            <Grid item xs={12} sm={6}>
+              <Comment blog_id={post.id} />
             </Grid>
           </Grid>
         );

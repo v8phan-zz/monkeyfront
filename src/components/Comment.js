@@ -17,7 +17,6 @@ const useStyles = makeStyles({
   },
   commentsDisplay: {
     overflowY: 'scroll',
-    marginTop: 20,
     marginLeft: 20,
   },
 });
