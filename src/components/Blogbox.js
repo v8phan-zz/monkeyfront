@@ -11,11 +11,11 @@ const useStyles = makeStyles({
   paper: {
     flexGrow: 1,
     marginTop: 20,
-    marginBottom: 20,
     paddingTop: 1,
     paddingLeft: 30,
     paddingRight: 30,
-    paddingBottom: 20,
+    paddingBottom: "100%",
+    marginBottom: "-100%",
   },
 });
 
@@ -24,15 +24,13 @@ const Blogbox = (props) => {
   const { name, text, image, alt } = props;
   return (
     //console.log(text),
-    (
-      <div>
-        <Paper className={classes.paper}>
-          <h1>{name}</h1>
-          {image && <img src={image} alt={alt} className={classes.image} />}
-          <h2>{text}</h2>
-        </Paper>
-      </div>
-    )
+    <div>
+      <Paper className={classes.paper}>
+        <h1>{name}</h1>
+        {image && <img src={image} alt={alt} className={classes.image} />}
+        <h2>{text}</h2>
+      </Paper>
+    </div>
   );
 };
 

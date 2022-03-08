@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
+import { makeStyles } from "@mui/styles";
+
+import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
@@ -8,14 +11,31 @@ import Cookies from "js-cookie";
 //import Cookies from "js-cookie";
 import { LoginContext } from "../App";
 
+const useStyles = makeStyles({
+  wholeComments: {
+    marginLeft: 20,
+  },
+  commentsDisplay: {
+    overflowY: 'scroll',
+    marginTop: 20,
+    marginLeft: 20,
+  },
+});
+
 const Comment = (props) => {
+  const classes = useStyles();
+
   const { blog_id } = props;
   const isLoggedIn = useContext(LoginContext);
   const user_id = Cookies.get("userId");
+
+  //for submitting comments
   const [comment, setComment] = useState("");
+  //for creating array to display
   const [comments, setComments] = useState([]);
 
   const getComments = () => {
+    //console.log('getComments')
     axios
     .get("/api/comment", { params: { blog_id } })
     .then((res) => {
@@ -23,11 +43,11 @@ const Comment = (props) => {
       console.log(res.data.RESULT, blog_id);
     })
     .catch((err) => console.log(err));
-  }
+  };
 
   useEffect(() => {
     getComments();
-  },);
+  }, []);
 
   const handleClick = () => {
     console.log({ comment, user_id });
@@ -44,14 +64,14 @@ const Comment = (props) => {
   //check if user is logged in to display comment form
   if (isLoggedIn) {
     return (
-      <div>
-        <div>
+      <Paper className={classes.wholeComments}>
+        <p className={classes.commentsDisplay}> 
           {comments.map(({ comment, user_id }) => (
             <p>
               {user_id}: {comment}
             </p>
           ))}
-        </div>
+        </p>
         <div>Comment on {blog_id}</div>
         <TextField
           label="comment"
@@ -67,11 +87,11 @@ const Comment = (props) => {
         >
           Submit
         </Button>
-      </div>
+      </Paper>
     );
   } else {
     return (
-      <div>
+      <Paper className={classes.commentsDisplay}>
         <div>
           {comments.map(({ comment, user_id }) => (
             <p>
@@ -80,7 +100,7 @@ const Comment = (props) => {
           ))}
         </div>
         <div>Log in to comment on {blog_id}</div>;
-      </div>
+      </Paper>
     );
   }
 };

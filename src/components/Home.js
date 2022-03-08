@@ -12,10 +12,8 @@ const useStyles = makeStyles({
     marginLeft: 10,
     marginRight: 10,
     flexGrow: 1,
-    backgroundColor: 'gray',
+    backgroundColor: "gray",
   },
-  comment: {
-  }
 });
 
 const Home = () => {
@@ -35,7 +33,12 @@ const Home = () => {
               />
             </Grid>
             <Grid>
-              <Comment className={classes.comment} item xs={12} sm={6} blog_id={post.id} />
+              <Comment
+                item
+                xs={12}
+                sm={6}
+                blog_id={post.id}
+              />
             </Grid>
           </Grid>
         );
