@@ -13,11 +13,9 @@ import { LoginContext } from "../App";
 
 const useStyles = makeStyles({
   wholeComments: {
-    marginLeft: 20,
   },
   commentsDisplay: {
     overflowY: 'scroll',
-    marginLeft: 20,
   },
 });
 
