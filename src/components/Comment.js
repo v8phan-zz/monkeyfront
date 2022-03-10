@@ -84,9 +84,9 @@ const Comment = (props) => {
         <div className={classes.commentsDisplay}>
           {comments.map(({ comment, user_id }) => (
             <div>
-                <div>
+                <p>
                   {user_id}: {comment}
-                </div>
+                </p>
               <Divider />
             </div>
           ))}
@@ -110,7 +110,9 @@ const Comment = (props) => {
     );
   } else {
     return (
-      <Paper className={classes.commentsDisplay}>
+      <div className={classes.wholeComments}>
+
+      <div className={classes.commentsDisplay}>
         <div>
           {comments.map(({ comment, user_id }) => (
             <div>
@@ -121,8 +123,11 @@ const Comment = (props) => {
             </div>
           ))}
         </div>
-        <div>Log in to comment on {blog_id}</div>;
-      </Paper>
+        </div>
+        <h4>Login to comment on blog {blog_id}</h4>
+        <Divider />
+
+      </div>
     );
   }
 };
