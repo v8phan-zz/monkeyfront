@@ -8,8 +8,11 @@ import Comment from "./Comment";
 
 const useStyles = makeStyles({
   container: {
-    backgroundColor: "gray",
+    backgroundColor: "white",
   },
+  blogbox: {
+    paddingLeft: 10,
+  }
 });
 
 const Home = () => {
@@ -20,7 +23,7 @@ const Home = () => {
       {Posts.map((post) => {
         return (
           <Grid container>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} className={classes.blogbox}>
               <Blogbox
                 name={post.name}
                 text={post.text}

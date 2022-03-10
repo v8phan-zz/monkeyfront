@@ -1,23 +1,40 @@
 import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@mui/styles";
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+
+import Grid from "@mui/material/Grid";
 
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Divider from "@mui/material/Divider";
 
 //import Posts from "./Posts";
 //import Cookies from "js-cookie";
 import { LoginContext } from "../App";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   wholeComments: {
+    display: "flex",
+    height: "100%",
+    flexDirection: "column",
+    marginLeft: 20,
+    marginTop: 21,
   },
   commentsDisplay: {
-    overflowY: 'scroll',
+    overflowY: "scroll",
+    borderRadius: 2,
+    padding: 10,
+    flex: "1 1 auto",
+    backgroundColor: "white",
+    height: 0,
+    [theme.breakpoints.down("md")]: {
+      height: 100,
+    },
   },
-});
+}));
 
 const Comment = (props) => {
   const classes = useStyles();
@@ -31,15 +48,17 @@ const Comment = (props) => {
   //for creating array to display
   const [comments, setComments] = useState([]);
 
+
+
   const getComments = () => {
     //console.log('getComments')
     axios
-    .get("/api/comment", { params: { blog_id } })
-    .then((res) => {
-      setComments(res.data.RESULT);
-      console.log(res.data.RESULT, blog_id);
-    })
-    .catch((err) => console.log(err));
+      .get("/api/comment", { params: { blog_id } })
+      .then((res) => {
+        setComments(res.data.RESULT);
+        console.log(res.data.RESULT, blog_id);
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -61,14 +80,17 @@ const Comment = (props) => {
   //check if user is logged in to display comment form
   if (isLoggedIn) {
     return (
-      <Paper className={classes.wholeComments}>
-        <p className={classes.commentsDisplay}> 
+      <div className={classes.wholeComments}>
+        <div className={classes.commentsDisplay}>
           {comments.map(({ comment, user_id }) => (
-            <p>
-              {user_id}: {comment}
-            </p>
+            <div>
+                <div>
+                  {user_id}: {comment}
+                </div>
+              <Divider />
+            </div>
           ))}
-        </p>
+        </div>
         <div>Comment on {blog_id}</div>
         <TextField
           label="comment"
@@ -84,16 +106,19 @@ const Comment = (props) => {
         >
           Submit
         </Button>
-      </Paper>
+      </div>
     );
   } else {
     return (
       <Paper className={classes.commentsDisplay}>
         <div>
           {comments.map(({ comment, user_id }) => (
-            <p>
-              {user_id}: {comment}
-            </p>
+            <div>
+              <p>
+                {user_id}: {comment}
+              </p>
+              <Divider />
+            </div>
           ))}
         </div>
         <div>Log in to comment on {blog_id}</div>;

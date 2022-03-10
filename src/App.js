@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Cookies from "js-cookie";
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
 export const LoginContext = React.createContext();
 
@@ -18,9 +19,14 @@ function App() {
     }
   }, []);
 
+  const theme = createTheme({});
+
+  console.log("Theme", theme);
+
   return (
     <LoginContext.Provider value={isLoggedIn}>
       <BrowserRouter>
+      <ThemeProvider theme={theme}>
         <Navbar />
         <Routes>
           <Route
@@ -33,9 +39,12 @@ function App() {
               />
             }
           />
-          <Route path="/home" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+
           <Route path="/" element={<Home />} />
         </Routes>
+        </ThemeProvider>
+
       </BrowserRouter>
     </LoginContext.Provider>
   );
