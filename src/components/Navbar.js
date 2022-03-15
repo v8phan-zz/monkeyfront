@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 
-const pages = ["Home", "About", "Contact"];
+const pages = ["Home", "About"];
 const settings = ["Login"];
 
 const ResponsiveAppBar = () => {
@@ -82,7 +82,7 @@ const ResponsiveAppBar = () => {
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
                     {" "}
-                    <Link to={page.toLowerCase()} textAlign="center">
+                    <Link to={page.toLowerCase()} textAlign="center" style={{ textDecoration: 'none' }}>
                       {page}
                     </Link>
                   </Typography>
@@ -105,7 +105,7 @@ const ResponsiveAppBar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                <Link to={page.toLowerCase()} textAlign="center">
+                <Link to={page.toLowerCase()} textAlign="center" style={{ textDecoration: 'none' }}>
                   {page}
                 </Link>
               </Button>
@@ -139,7 +139,7 @@ const ResponsiveAppBar = () => {
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseNavMenu}>
                   <Typography>
-                    <Link to={setting.toLowerCase()} textAlign="center">
+                    <Link to={setting.toLowerCase()} textAlign="center" style={{ textDecoration: 'none' }}>
                       {setting}
                     </Link>
                   </Typography>

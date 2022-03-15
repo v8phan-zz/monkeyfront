@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@mui/styles";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
-
-import Grid from "@mui/material/Grid";
-
-import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
@@ -20,13 +15,14 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     height: "100%",
     flexDirection: "column",
-    marginLeft: 20,
-    marginTop: 21,
+    marginLeft: 10,
+    marginTop: 10,
+    marginRight: 5,
+    padding: 12,
   },
   commentsDisplay: {
     overflowY: "scroll",
     borderRadius: 2,
-    padding: 10,
     flex: "1 1 auto",
     backgroundColor: "white",
     height: 0,
@@ -47,8 +43,6 @@ const Comment = (props) => {
   const [comment, setComment] = useState("");
   //for creating array to display
   const [comments, setComments] = useState([]);
-
-
 
   const getComments = () => {
     //console.log('getComments')
@@ -84,38 +78,6 @@ const Comment = (props) => {
         <div className={classes.commentsDisplay}>
           {comments.map(({ comment, user_id }) => (
             <div>
-                <p>
-                  {user_id}: {comment}
-                </p>
-              <Divider />
-            </div>
-          ))}
-        </div>
-        <div>Comment on {blog_id}</div>
-        <TextField
-          label="comment"
-          placeholder="Comment here"
-          value={comment}
-          onInput={(e) => setComment(e.target.value)}
-        ></TextField>
-        <Button
-          variant="contained"
-          type="submit"
-          color="primary"
-          onClick={handleClick}
-        >
-          Submit
-        </Button>
-      </div>
-    );
-  } else {
-    return (
-      <div className={classes.wholeComments}>
-
-      <div className={classes.commentsDisplay}>
-        <div>
-          {comments.map(({ comment, user_id }) => (
-            <div>
               <p>
                 {user_id}: {comment}
               </p>
@@ -123,10 +85,40 @@ const Comment = (props) => {
             </div>
           ))}
         </div>
+          {/* <div>Comment on {blog_id}</div> */}
+          <TextField
+            label="comment"
+            placeholder="Comment here"
+            value={comment}
+            onInput={(e) => setComment(e.target.value)}
+          ></TextField>
+          <Button
+            variant="contained"
+            type="submit"
+            color="primary"
+            onClick={handleClick}
+          >
+            Submit
+          </Button>
+      </div>
+    );
+  } else {
+    return (
+      <div className={classes.wholeComments}>
+        <div className={classes.commentsDisplay}>
+          <div>
+            {comments.map(({ comment, user_id }) => (
+              <div>
+                <p>
+                  {user_id}: {comment}
+                </p>
+                <Divider />
+              </div>
+            ))}
+          </div>
         </div>
         <h4>Login to comment on blog {blog_id}</h4>
         <Divider />
-
       </div>
     );
   }
