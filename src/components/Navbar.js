@@ -82,7 +82,7 @@ const ResponsiveAppBar = () => {
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
                     {" "}
-                    <Link to={page.toLowerCase()} textAlign="center" style={{ textDecoration: 'none' }}>
+                    <Link to={page.toLowerCase()} textAlign="center" style={{ textDecoration: 'none', color: 'darkblue' }}>
                       {page}
                     </Link>
                   </Typography>
@@ -105,7 +105,7 @@ const ResponsiveAppBar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                <Link to={page.toLowerCase()} textAlign="center" style={{ textDecoration: 'none' }}>
+                <Link to={page.toLowerCase()} textAlign="center" style={{ textDecoration: 'none', color: 'white' }}>
                   {page}
                 </Link>
               </Button>
@@ -139,7 +139,7 @@ const ResponsiveAppBar = () => {
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseNavMenu}>
                   <Typography>
-                    <Link to={setting.toLowerCase()} textAlign="center" style={{ textDecoration: 'none' }}>
+                    <Link to={setting.toLowerCase()} textAlign="center" style={{ textDecoration: 'none', color: 'darkblue' }}>
                       {setting}
                     </Link>
                   </Typography>
