@@ -136,9 +136,9 @@ const Login = (props) => {
               SIGN UP
             </Button>
           </Typography>
-          <h1>
+          {/* <h1>
             email: {email}, password: {password}
-          </h1>
+          </h1> */}
         </Paper>
       </Grid>
     );
